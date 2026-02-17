@@ -90,7 +90,7 @@ sketchybar --add item separator left \
   --set separator \
     icon="" \
     icon.font="Hack Nerd Font:Bold:13.0" \
-    icon.color=0xff66e3ff \
+    icon.color=0xff9ece6a \
     icon.padding_left=4 \
     icon.padding_right=4 \
     label.drawing=off \
@@ -105,8 +105,8 @@ sketchybar --add item front_app left \
     label.padding_left=10 \
     label.padding_right=10 \
     background.drawing=on \
-    background.color=0xff66e3ff \
-    background.border_color=0xff7df1ff \
+    background.color=0xff9ece6a \
+    background.border_color=0xff9ece6a \
     background.border_width=1 \
     background.corner_radius=$ITEM_CORNER_RADIUS \
     background.height=28 \

@@ -7,9 +7,9 @@ export BAR_COLOR=0x00000000
 export BAR_BORDER_COLOR=0x00000000
 
 # Item backgrounds (semi-transparent dark pills)
-export ITEM_BG=0x601a1b26
-export ITEM_BORDER=0x40565f89
-export ITEM_CORNER_RADIUS=8
+export ITEM_BG=0x60101018
+export ITEM_BORDER=0x40a89858
+export ITEM_CORNER_RADIUS=4
 
 # General
 export WHITE=0xffc0caf5
