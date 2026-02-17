@@ -40,3 +40,12 @@ export INACTIVE_WS_LABEL=0xa0a9b1d6
 export INACTIVE_WS_BG=0x401a1b26
 export INACTIVE_WS_BORDER=0x30565f89
 export EMPTY_WS_ICON=0x40565f89
+
+# Workspace states (AeroSpace)
+export WS_ACTIVE_HIGHLIGHT=0xfff4d98b
+export WS_OCCUPIED_TEXT=0xfff6f8ff
+export WS_EMPTY_TEXT=0xff7b839f
+export WS_INACTIVE_BORDER=0xff5e657d
+
+# Right side typography
+export RIGHT_PRIMARY_TEXT=0xfff8faff

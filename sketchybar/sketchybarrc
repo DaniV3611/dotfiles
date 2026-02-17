@@ -28,10 +28,10 @@ default=(
   label.font="Hack Nerd Font:Bold:12.0"
   icon.color=$ICON_COLOR
   label.color=$LABEL_COLOR
-  icon.padding_left=8
+  icon.padding_left=10
   icon.padding_right=4
   label.padding_left=4
-  label.padding_right=8
+  label.padding_right=10
   background.drawing=on
   background.color=$ITEM_BG
   background.border_color=$ITEM_BORDER
@@ -65,16 +65,21 @@ for sid in 1 2 3 4 5 6 7 8 9; do
     --set space.$sid \
       icon="$sid" \
       icon.font="Hack Nerd Font:Bold:14.0" \
-      icon.color=$EMPTY_WS_ICON \
+      icon.color=$WS_EMPTY_TEXT \
       icon.padding_left=10 \
       icon.padding_right=4 \
       label="" \
       label.font="Hack Nerd Font:Regular:12.0" \
-      label.color=$INACTIVE_WS_LABEL \
+      label.color=$WS_OCCUPIED_TEXT \
       label.padding_left=0 \
       label.padding_right=10 \
-      background.drawing=off \
-      drawing=off \
+      background.drawing=on \
+      background.color=$ITEM_BG \
+      background.border_color=$WS_INACTIVE_BORDER \
+      background.border_width=1 \
+      background.corner_radius=$ITEM_CORNER_RADIUS \
+      background.height=28 \
+      drawing=on \
       click_script="aerospace workspace $sid"
 done
 
@@ -115,16 +120,17 @@ sketchybar --add item front_app left \
 
 # ===== Right Side Items =====
 # Each item is its own pill with border
+RIGHT_ICON_FONT="Hack Nerd Font:Bold:11.0"
+RIGHT_LABEL_FONT="SF Pro:Semibold:13.0"
 
 # -- Clock (rightmost)
 sketchybar --add item clock right \
   --set clock \
     update_freq=10 \
-    icon="󰥔" \
-    icon.color=$ACCENT \
-    icon.font="Hack Nerd Font:Bold:12.0" \
-    label.font="Hack Nerd Font:Bold:13.0" \
-    label.color=$WHITE \
+    icon.drawing=off \
+    label.font="$RIGHT_LABEL_FONT" \
+    label.color=$RIGHT_PRIMARY_TEXT \
+    label.padding_left=10 \
     script="$PLUGIN_DIR/clock.sh"
 
 # -- Battery
@@ -133,9 +139,9 @@ sketchybar --add item battery right \
     update_freq=120 \
     icon="󰁹" \
     icon.color=$GREEN \
-    icon.font="Hack Nerd Font:Bold:12.0" \
-    label.font="Hack Nerd Font:Bold:13.0" \
-    label.color=$TEXT \
+    icon.font="$RIGHT_ICON_FONT" \
+    label.font="$RIGHT_LABEL_FONT" \
+    label.color=$RIGHT_PRIMARY_TEXT \
     script="$PLUGIN_DIR/battery.sh" \
   --subscribe battery system_woke power_source_change
 
@@ -143,10 +149,10 @@ sketchybar --add item battery right \
 sketchybar --add item dnd right \
   --set dnd \
     icon="DND" \
-    icon.font="Hack Nerd Font:Bold:12.0" \
+    icon.font="$RIGHT_ICON_FONT" \
     icon.color=$RED \
-    label.font="Hack Nerd Font:Bold:13.0" \
-    label.color=$TEXT \
+    label.font="$RIGHT_LABEL_FONT" \
+    label.color=$RIGHT_PRIMARY_TEXT \
     drawing=off \
     update_freq=5 \
     script="$PLUGIN_DIR/dnd.sh" \
@@ -167,10 +173,10 @@ sketchybar --add item dnd right \
 sketchybar --add item volume right \
   --set volume \
     icon="VOL" \
-    icon.font="Hack Nerd Font:Bold:12.0" \
+    icon.font="$RIGHT_ICON_FONT" \
     icon.color=$CYAN \
-    label.font="Hack Nerd Font:Bold:13.0" \
-    label.color=$TEXT \
+    label.font="$RIGHT_LABEL_FONT" \
+    label.color=$RIGHT_PRIMARY_TEXT \
     script="$PLUGIN_DIR/volume.sh" \
   --subscribe volume volume_change
 
@@ -178,10 +184,10 @@ sketchybar --add item volume right \
 sketchybar --add item cpu right \
   --set cpu \
     icon="CPU" \
-    icon.font="Hack Nerd Font:Bold:12.0" \
+    icon.font="$RIGHT_ICON_FONT" \
     icon.color=$CYAN \
-    label.font="Hack Nerd Font:Bold:13.0" \
-    label.color=$TEXT \
+    label.font="$RIGHT_LABEL_FONT" \
+    label.color=$RIGHT_PRIMARY_TEXT \
     update_freq=5 \
     script="$PLUGIN_DIR/cpu.sh"
 
@@ -189,10 +195,10 @@ sketchybar --add item cpu right \
 sketchybar --add item gpu right \
   --set gpu \
     icon="GPU" \
-    icon.font="Hack Nerd Font:Bold:12.0" \
+    icon.font="$RIGHT_ICON_FONT" \
     icon.color=$GREEN \
-    label.font="Hack Nerd Font:Bold:13.0" \
-    label.color=$TEXT \
+    label.font="$RIGHT_LABEL_FONT" \
+    label.color=$RIGHT_PRIMARY_TEXT \
     update_freq=5 \
     script="$PLUGIN_DIR/gpu.sh"
 
@@ -200,10 +206,10 @@ sketchybar --add item gpu right \
 sketchybar --add item ram right \
   --set ram \
     icon="RAM" \
-    icon.font="Hack Nerd Font:Bold:12.0" \
+    icon.font="$RIGHT_ICON_FONT" \
     icon.color=$MAGENTA \
-    label.font="Hack Nerd Font:Bold:13.0" \
-    label.color=$TEXT \
+    label.font="$RIGHT_LABEL_FONT" \
+    label.color=$RIGHT_PRIMARY_TEXT \
     update_freq=10 \
     script="$PLUGIN_DIR/ram.sh"
 
