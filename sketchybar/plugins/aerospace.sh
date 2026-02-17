@@ -17,7 +17,7 @@ for SID in 1 2 3 4 5 6 7 8 9; do
   # Build app list label for occupied workspaces
   if [ -n "$WINDOWS" ]; then
     APP_LIST=$(echo "$WINDOWS" | sort -u | tr '\n' '|' | sed 's/|$//; s/|/ | /g')
-    LABEL="$APP_LIST"
+    LABEL="· $APP_LIST"
     ICON_COLOR="$WS_OCCUPIED_TEXT"
     LABEL_COLOR="$WS_OCCUPIED_TEXT"
   else
