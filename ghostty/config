@@ -1,0 +1,19 @@
+font-family=Fira Code
+
+# Theme synced with OS appear
+# theme = dark:coolnight,light:light
+
+theme = aura
+
+# Tamaño inicial de la ventana
+window-width=136
+window-height=46
+
+# Transparencia y blur
+background-opacity=0.9
+background-blur=20
+
+# Cursor y ratón
+cursor-style=block
+cursor-style-blink=true
+mouse-hide-while-typing=true
