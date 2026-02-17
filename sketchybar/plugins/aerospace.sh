@@ -10,7 +10,7 @@ fi
 
 ARGS=()
 
-for SID in 1 2 3 4 5 6 7 8 9; do
+for SID in 1 2 3 4 5 6 7; do
   # Get list of windows in this workspace
   WINDOWS="$(aerospace list-windows --workspace "$SID" --format '%{app-name}' 2>/dev/null)"
 

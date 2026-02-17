@@ -42,7 +42,7 @@ alt-shift-j = 'move down'
 alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
-# Workspaces: alt + 1-9 to switch
+# Workspaces: alt + 1-7 to switch
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
@@ -50,9 +50,8 @@ alt-4 = 'workspace 4'
 alt-5 = 'workspace 5'
 alt-6 = 'workspace 6'
 alt-7 = 'workspace 7'
-alt-8 = 'workspace 8'
 
-# Move to workspace: alt + shift + 1-9
+# Move to workspace: alt + shift + 1-7
 alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'
@@ -60,7 +59,6 @@ alt-shift-4 = 'move-node-to-workspace 4'
 alt-shift-5 = 'move-node-to-workspace 5'
 alt-shift-6 = 'move-node-to-workspace 6'
 alt-shift-7 = 'move-node-to-workspace 7'
-alt-shift-8 = 'move-node-to-workspace 8'
 
 # Utilities
 alt-tab = 'workspace-back-and-forth'
@@ -69,8 +67,8 @@ alt-a = 'layout v_accordion'
 alt-r = 'mode resize'
 
 [workspace-to-monitor-force-assignment]
-7 = 'built-in'
-8 = 'built-in'
+5 = 'built-in'
+6 = 'built-in'
 
 [mode.resize.binding]
 h = 'resize width -50'
