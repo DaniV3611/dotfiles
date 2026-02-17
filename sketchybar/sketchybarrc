@@ -1,0 +1,211 @@
+#!/bin/bash
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+source "$CONFIG_DIR/colors.sh"
+
+# ===== Bar Appearance =====
+# Fully transparent bar — each item renders its own background
+sketchybar --bar \
+  position=top \
+  height=40 \
+  blur_radius=0 \
+  color=$BAR_COLOR \
+  border_width=0 \
+  shadow=off \
+  padding_left=8 \
+  padding_right=8 \
+  margin=0 \
+  y_offset=4 \
+  corner_radius=0 \
+  topmost=window
+
+# ===== Defaults =====
+# Every item gets a semi-transparent pill with subtle border
+default=(
+  padding_left=3
+  padding_right=3
+  icon.font="Hack Nerd Font:Bold:14.0"
+  label.font="Hack Nerd Font:Bold:12.0"
+  icon.color=$ICON_COLOR
+  label.color=$LABEL_COLOR
+  icon.padding_left=8
+  icon.padding_right=4
+  label.padding_left=4
+  label.padding_right=8
+  background.drawing=on
+  background.color=$ITEM_BG
+  background.border_color=$ITEM_BORDER
+  background.border_width=1
+  background.corner_radius=$ITEM_CORNER_RADIUS
+  background.height=28
+)
+sketchybar --default "${default[@]}"
+
+# ===== Apple Logo (Left) =====
+# sketchybar --add item apple_logo left \
+#   --set apple_logo \
+#     icon="" \
+#     icon.font="Hack Nerd Font:Bold:16.0" \
+#     icon.color=$WHITE \
+#     icon.padding_left=8 \
+#     icon.padding_right=8 \
+#     label.drawing=off \
+#     background.drawing=on \
+#     background.color=$ITEM_BG \
+#     background.border_color=$ITEM_BORDER \
+#     background.border_width=1 \
+#     background.corner_radius=$ITEM_CORNER_RADIUS \
+#     background.height=28
+
+# ===== Aerospace Workspaces (Left) =====
+sketchybar --add event aerospace_workspace_change
+
+for sid in 1 2 3 4 5 6 7 8 9; do
+  sketchybar --add item space.$sid left \
+    --set space.$sid \
+      icon="$sid" \
+      icon.font="Hack Nerd Font:Bold:14.0" \
+      icon.color=$EMPTY_WS_ICON \
+      icon.padding_left=10 \
+      icon.padding_right=4 \
+      label="" \
+      label.font="Hack Nerd Font:Regular:12.0" \
+      label.color=$INACTIVE_WS_LABEL \
+      label.padding_left=0 \
+      label.padding_right=10 \
+      background.drawing=off \
+      drawing=off \
+      click_script="aerospace workspace $sid"
+done
+
+# Trigger: listens for aerospace events and updates all workspaces
+sketchybar --add item aerospace_trigger left \
+  --set aerospace_trigger \
+    drawing=off \
+    script="$PLUGIN_DIR/aerospace.sh" \
+  --subscribe aerospace_trigger aerospace_workspace_change
+
+# ===== Separator (Left) =====
+sketchybar --add item separator left \
+  --set separator \
+    icon="" \
+    icon.font="Hack Nerd Font:Bold:13.0" \
+    icon.color=0xff66e3ff \
+    icon.padding_left=4 \
+    icon.padding_right=4 \
+    label.drawing=off \
+    background.drawing=off
+
+# ===== Front App (Left) =====
+sketchybar --add item front_app left \
+  --set front_app \
+    icon.drawing=off \
+    label.font="Hack Nerd Font:Bold:12.0" \
+    label.color=0xff0f1720 \
+    label.padding_left=10 \
+    label.padding_right=10 \
+    background.drawing=on \
+    background.color=0xff66e3ff \
+    background.border_color=0xff7df1ff \
+    background.border_width=1 \
+    background.corner_radius=$ITEM_CORNER_RADIUS \
+    background.height=28 \
+    script="$PLUGIN_DIR/front_app.sh" \
+  --subscribe front_app front_app_switched
+
+# ===== Right Side Items =====
+# Each item is its own pill with border
+
+# -- Clock (rightmost)
+sketchybar --add item clock right \
+  --set clock \
+    update_freq=10 \
+    icon="󰥔" \
+    icon.color=$ACCENT \
+    icon.font="Hack Nerd Font:Bold:12.0" \
+    label.font="Hack Nerd Font:Bold:13.0" \
+    label.color=$WHITE \
+    script="$PLUGIN_DIR/clock.sh"
+
+# -- Battery
+sketchybar --add item battery right \
+  --set battery \
+    update_freq=120 \
+    icon="󰁹" \
+    icon.color=$GREEN \
+    icon.font="Hack Nerd Font:Bold:12.0" \
+    label.font="Hack Nerd Font:Bold:13.0" \
+    label.color=$TEXT \
+    script="$PLUGIN_DIR/battery.sh" \
+  --subscribe battery system_woke power_source_change
+
+# -- Do Not Disturb
+sketchybar --add item dnd right \
+  --set dnd \
+    icon="DND" \
+    icon.font="Hack Nerd Font:Bold:12.0" \
+    icon.color=$RED \
+    label.font="Hack Nerd Font:Bold:13.0" \
+    label.color=$TEXT \
+    drawing=off \
+    update_freq=5 \
+    script="$PLUGIN_DIR/dnd.sh" \
+  --subscribe dnd system_woke
+
+# -- WiFi
+# sketchybar --add item wifi right \
+#   --set wifi \
+#     icon="WFI" \
+#     icon.font="Hack Nerd Font:Bold:12.0" \
+#     icon.color=$BLUE \
+#     label.font="Hack Nerd Font:Bold:13.0" \
+#     label.color=$TEXT \
+#     update_freq=30 \
+#     script="$PLUGIN_DIR/wifi.sh"
+
+# -- Volume
+sketchybar --add item volume right \
+  --set volume \
+    icon="VOL" \
+    icon.font="Hack Nerd Font:Bold:12.0" \
+    icon.color=$CYAN \
+    label.font="Hack Nerd Font:Bold:13.0" \
+    label.color=$TEXT \
+    script="$PLUGIN_DIR/volume.sh" \
+  --subscribe volume volume_change
+
+# -- CPU
+sketchybar --add item cpu right \
+  --set cpu \
+    icon="CPU" \
+    icon.font="Hack Nerd Font:Bold:12.0" \
+    icon.color=$CYAN \
+    label.font="Hack Nerd Font:Bold:13.0" \
+    label.color=$TEXT \
+    update_freq=5 \
+    script="$PLUGIN_DIR/cpu.sh"
+
+# -- GPU
+sketchybar --add item gpu right \
+  --set gpu \
+    icon="GPU" \
+    icon.font="Hack Nerd Font:Bold:12.0" \
+    icon.color=$GREEN \
+    label.font="Hack Nerd Font:Bold:13.0" \
+    label.color=$TEXT \
+    update_freq=5 \
+    script="$PLUGIN_DIR/gpu.sh"
+
+# -- RAM (leftmost right item)
+sketchybar --add item ram right \
+  --set ram \
+    icon="RAM" \
+    icon.font="Hack Nerd Font:Bold:12.0" \
+    icon.color=$MAGENTA \
+    label.font="Hack Nerd Font:Bold:13.0" \
+    label.color=$TEXT \
+    update_freq=10 \
+    script="$PLUGIN_DIR/ram.sh"
+
+# ===== Force all scripts to run =====
+sketchybar --update
