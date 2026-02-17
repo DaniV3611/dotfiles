@@ -1,0 +1,12 @@
+gcloud/
+node_modules
+opencode
+raycast/extensions
+
+.DS_Store
+*.log
+*.tmp
+*.swp
+*.swo
+
+.env*
