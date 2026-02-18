@@ -192,53 +192,28 @@ sketchybar --add item volume right \
     script="$PLUGIN_DIR/volume.sh" \
   --subscribe volume volume_change
 
-sketchybar --add item cpu right \
-  --set cpu \
-    icon="󰍛" \
+sketchybar --add item media right \
+  --set media \
+    icon="󰐊" \
     icon.font="$RIGHT_ICON_FONT" \
-    icon.color=$CYAN \
+    icon.color=$ACCENT \
+    label="No media" \
+    label.drawing=on \
     label.font="$RIGHT_LABEL_FONT" \
     label.color=$RIGHT_PRIMARY_TEXT \
+    label.padding_left=4 \
+    label.padding_right=10 \
+    icon.padding_left=10 \
+    icon.padding_right=4 \
     background.drawing=on \
     background.color=$WS_EMPTY_BG \
     background.border_color=$WS_INACTIVE_BORDER \
     background.border_width=0 \
     background.corner_radius=$ITEM_CORNER_RADIUS \
     background.height=$ITEM_HEIGHT \
-    update_freq=5 \
-    script="$PLUGIN_DIR/cpu.sh"
-
-sketchybar --add item gpu right \
-  --set gpu \
-    icon="󰢮" \
-    icon.font="$RIGHT_ICON_FONT" \
-    icon.color=$GREEN \
-    label.font="$RIGHT_LABEL_FONT" \
-    label.color=$RIGHT_PRIMARY_TEXT \
-    background.drawing=on \
-    background.color=$WS_EMPTY_BG \
-    background.border_color=$WS_INACTIVE_BORDER \
-    background.border_width=0 \
-    background.corner_radius=$ITEM_CORNER_RADIUS \
-    background.height=$ITEM_HEIGHT \
-    update_freq=5 \
-    script="$PLUGIN_DIR/gpu.sh"
-
-sketchybar --add item ram right \
-  --set ram \
-    icon="󰘚" \
-    icon.font="$RIGHT_ICON_FONT" \
-    icon.color=$MAGENTA \
-    label.font="$RIGHT_LABEL_FONT" \
-    label.color=$RIGHT_PRIMARY_TEXT \
-    background.drawing=on \
-    background.color=$WS_EMPTY_BG \
-    background.border_color=$WS_INACTIVE_BORDER \
-    background.border_width=0 \
-    background.corner_radius=$ITEM_CORNER_RADIUS \
-    background.height=$ITEM_HEIGHT \
-    update_freq=10 \
-    script="$PLUGIN_DIR/ram.sh"
+    update_freq=3 \
+    script="$PLUGIN_DIR/media.sh" \
+  --subscribe media mouse.clicked system_woke
 
 sketchybar --add bracket left_cluster logo space.1 space.2 space.3 space.4 space.5 space.6 space.7 front_app \
   --set left_cluster \
@@ -251,7 +226,7 @@ sketchybar --add bracket left_cluster logo space.1 space.2 space.3 space.4 space
 
 sketchybar --set logo padding_left=12
 sketchybar --set front_app padding_right=12
-sketchybar --set ram padding_left=10
+sketchybar --set media padding_left=10
 
 "$PLUGIN_DIR/aerospace.sh"
 sketchybar --update

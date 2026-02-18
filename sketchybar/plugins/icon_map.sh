@@ -31,6 +31,7 @@ case "$1" in
   "Slack") echo "󰒱" ;;
   "Spotify") echo "󰓇" ;;
   "ChatGPT") echo "󰭻" ;;
+  "Unity") echo "󰚯" ;;
 
   # ===== Fallback =====
   *) echo "󰋜" ;;
