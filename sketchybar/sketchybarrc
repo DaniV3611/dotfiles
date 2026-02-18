@@ -28,10 +28,10 @@ default=(
   label.font="Hack Nerd Font:Bold:12.0"
   icon.color=$ICON_COLOR
   label.color=$LABEL_COLOR
-  icon.padding_left=10
+  icon.padding_left=14
   icon.padding_right=4
   label.padding_left=4
-  label.padding_right=10
+  label.padding_right=14
   background.drawing=on
   background.color=$ITEM_BG
   background.border_color=$ITEM_BORDER
@@ -158,16 +158,16 @@ sketchybar --add item dnd right \
     script="$PLUGIN_DIR/dnd.sh" \
   --subscribe dnd system_woke
 
-# -- WiFi
-# sketchybar --add item wifi right \
-#   --set wifi \
-#     icon="WFI" \
-#     icon.font="Hack Nerd Font:Bold:12.0" \
-#     icon.color=$BLUE \
-#     label.font="Hack Nerd Font:Bold:13.0" \
-#     label.color=$TEXT \
-#     update_freq=30 \
-#     script="$PLUGIN_DIR/wifi.sh"
+-- WiFi
+sketchybar --add item wifi right \
+  --set wifi \
+    icon="WFI" \
+    icon.font="Hack Nerd Font:Bold:12.0" \
+    icon.color=$BLUE \
+    label.font="Hack Nerd Font:Bold:13.0" \
+    label.color=$TEXT \
+    update_freq=30 \
+    script="$PLUGIN_DIR/wifi.sh"
 
 # -- Volume
 sketchybar --add item volume right \
