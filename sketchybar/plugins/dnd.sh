@@ -35,7 +35,7 @@ PY
 fi
 
 if [ "$ACTIVE" = "1" ]; then
-  sketchybar --set "$NAME" drawing=on icon="󰂛" icon.color="$RED" label="focus" label.color="$RIGHT_PRIMARY_TEXT"
+  sketchybar --set "$NAME" drawing=on icon="󰂛" icon.color="$RED"
 else
   sketchybar --set "$NAME" drawing=off
 fi

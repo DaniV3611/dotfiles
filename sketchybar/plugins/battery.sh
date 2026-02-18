@@ -12,22 +12,22 @@ fi
 
 if [[ "$CHARGING" != "" ]]; then
   COLOR=$GREEN
-  ICON="󰂄"
+  ICON="󱐌"
 elif [ "$PERCENTAGE" -ge 90 ]; then
   COLOR=$GREEN
-  ICON="󰁹"
-elif [ "$PERCENTAGE" -ge 70 ]; then
+  ICON=""
+elif [ "$PERCENTAGE" -ge 75 ]; then
   COLOR=$GREEN
-  ICON="󰂁"
-elif [ "$PERCENTAGE" -ge 40 ]; then
+  ICON=""
+elif [ "$PERCENTAGE" -ge 50 ]; then
   COLOR=$YELLOW
-  ICON="󰁿"
-elif [ "$PERCENTAGE" -ge 20 ]; then
+  ICON=""
+elif [ "$PERCENTAGE" -ge 25 ]; then
   COLOR=$ORANGE
-  ICON="󰁻"
+  ICON=""
 else
   COLOR=$RED
-  ICON="󰂎"
+  ICON=""
 fi
 
 sketchybar --set "$NAME" icon="$ICON" icon.color="$COLOR" label="${PERCENTAGE}%"

@@ -18,13 +18,18 @@ if [ "$SENDER" = "mouse.clicked" ] && [ -n "$PLAYER" ]; then
 fi
 
 if [ -z "$PLAYER" ]; then
-  sketchybar --set "$NAME" icon="󰐊" icon.color="$SUBTLE" label="No media"
+  sketchybar --set "$NAME" drawing=off
   exit 0
 fi
 
 STATE="$(osascript -e "tell application \"$PLAYER\" to player state as string" 2>/dev/null)"
 TRACK="$(osascript -e "tell application \"$PLAYER\" to if player state is not stopped then name of current track" 2>/dev/null)"
 ARTIST="$(osascript -e "tell application \"$PLAYER\" to if player state is not stopped then artist of current track" 2>/dev/null)"
+
+if [ "$STATE" = "stopped" ]; then
+  sketchybar --set "$NAME" drawing=off
+  exit 0
+fi
 
 if [ "$STATE" = "playing" ]; then
   ICON="󰏤"
@@ -46,4 +51,4 @@ if [ "${#LABEL}" -gt "$MAX_LEN" ]; then
   LABEL="${LABEL:0:$((MAX_LEN - 3))}..."
 fi
 
-sketchybar --set "$NAME" icon="$ICON" icon.color="$COLOR" label="$LABEL"
+sketchybar --set "$NAME" drawing=on icon="$ICON" icon.color="$COLOR" label="$LABEL" label.drawing=on
