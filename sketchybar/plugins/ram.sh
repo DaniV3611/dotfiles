@@ -15,10 +15,13 @@ RAM_PERCENTAGE=$((USED_MEM_MB * 100 / TOTAL_MEM_MB))
 
 if [ "$RAM_PERCENTAGE" -gt 80 ]; then
   COLOR=$RED
+  ICON="󰓅"
 elif [ "$RAM_PERCENTAGE" -gt 60 ]; then
   COLOR=0xffff8fc7
+  ICON="󰘚"
 else
   COLOR=$MAGENTA
+  ICON="󰘚"
 fi
 
-sketchybar --set "$NAME" icon="RAM" icon.color="$COLOR" label="${RAM_PERCENTAGE}%"
+sketchybar --set "$NAME" icon="$ICON" icon.color="$COLOR" label="${RAM_PERCENTAGE}%"

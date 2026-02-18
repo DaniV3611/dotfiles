@@ -6,222 +6,252 @@ source "$CONFIG_DIR/colors.sh"
 BAR_HEIGHT=34
 NOTCH_BAR_HEIGHT=32
 ITEM_HEIGHT=24
+GROUP_HEIGHT=26
 
-# Detect real notch width from macOS auxiliary top areas.
 NOTCH_WIDTH="$(swift -e 'import AppKit; var width = 200; for screen in NSScreen.screens { if #available(macOS 12.0, *), let left = screen.auxiliaryTopLeftArea, let right = screen.auxiliaryTopRightArea { let notch = Int(round(screen.frame.width - left.width - right.width)); if notch > 0 { width = notch; break } } }; print(width)' 2>/dev/null)"
 NOTCH_WIDTH="${NOTCH_WIDTH:-200}"
 
-# ===== Bar Appearance =====
-# Fully transparent bar — each item renders its own background
 sketchybar --bar \
   position=top \
   height=$BAR_HEIGHT \
   notch_display_height=$NOTCH_BAR_HEIGHT \
   notch_width=$NOTCH_WIDTH \
-  blur_radius=0 \
+  blur_radius=42 \
   color=$BAR_COLOR \
   border_width=0 \
-  shadow=off \
-  padding_left=8 \
-  padding_right=8 \
+  border_color=$BAR_BORDER_COLOR \
+  shadow=on \
+  padding_left=10 \
+  padding_right=10 \
   margin=0 \
   y_offset=2 \
-  corner_radius=0 \
+  corner_radius=14 \
   topmost=window
 
-# ===== Defaults =====
-# Every item gets a semi-transparent pill with subtle border
 default=(
-  padding_left=3
-  padding_right=3
-  icon.font="JetBrainsMono Nerd Font:Bold:14.0"
+  padding_left=5
+  padding_right=5
+  icon.font="JetBrainsMono Nerd Font:Bold:15.0"
   label.font="JetBrainsMono Nerd Font:Bold:12.0"
   icon.color=$ICON_COLOR
   label.color=$LABEL_COLOR
-  icon.padding_left=14
+  icon.padding_left=6
   icon.padding_right=4
   label.padding_left=4
-  label.padding_right=14
-  background.drawing=on
-  background.color=$ITEM_BG
-  background.border_color=$ITEM_BORDER
-  background.border_width=1
-  background.corner_radius=$ITEM_CORNER_RADIUS
-  background.height=$ITEM_HEIGHT
+  label.padding_right=6
+  background.drawing=off
 )
 sketchybar --default "${default[@]}"
 
-# ===== Apple Logo (Left) =====
-# sketchybar --add item apple_logo left \
-#   --set apple_logo \
-#     icon="" \
-#     icon.font="JetBrainsMono Nerd Font:Bold:16.0" \
-#     icon.color=$WHITE \
-#     icon.padding_left=8 \
-#     icon.padding_right=8 \
-#     label.drawing=off \
-#     background.drawing=on \
-#     background.color=$ITEM_BG \
-#     background.border_color=$ITEM_BORDER \
-#     background.border_width=1 \
-#     background.corner_radius=$ITEM_CORNER_RADIUS \
-#     background.height=28
-
-# ===== Aerospace Workspaces (Left) =====
 sketchybar --add event aerospace_workspace_change
+
+# sketchybar --add item logo left \
+#   --set logo \
+#     icon="" \
+#     icon.font="JetBrainsMono Nerd Font:Bold:17.0" \
+#     icon.color=$ACCENT \
+#     label="" \
+#     label.font="JetBrainsMono Nerd Font:ExtraBold:12.0" \
+#     label.color=$WHITE \
+#     label.padding_right=10 \
+#     click_script="open -a System\\ Settings"
 
 for sid in 1 2 3 4 5 6 7; do
   sketchybar --add item space.$sid left \
     --set space.$sid \
       icon="$sid" \
-      icon.font="JetBrainsMono Nerd Font:Bold:14.0" \
+      icon.font="JetBrainsMono Nerd Font:Bold:16.0" \
       icon.color=$WS_EMPTY_TEXT \
       icon.padding_left=10 \
       icon.padding_right=4 \
       label="" \
-      label.font="JetBrainsMono Nerd Font:Regular:12.0" \
+      label.font="JetBrainsMono Nerd Font:Bold:13.0" \
       label.color=$WS_OCCUPIED_TEXT \
       label.padding_left=0 \
       label.padding_right=10 \
       background.drawing=on \
-      background.color=$ITEM_BG \
+      background.color=$WS_EMPTY_BG \
       background.border_color=$WS_INACTIVE_BORDER \
-      background.border_width=1 \
+      background.border_width=0 \
       background.corner_radius=$ITEM_CORNER_RADIUS \
       background.height=$ITEM_HEIGHT \
       drawing=on \
       click_script="aerospace workspace $sid"
 done
 
-# Trigger: listens for aerospace events and updates all workspaces
 sketchybar --add item aerospace_trigger left \
   --set aerospace_trigger \
     drawing=off \
     script="$PLUGIN_DIR/aerospace.sh" \
   --subscribe aerospace_trigger aerospace_workspace_change
 
-# ===== Separator (Left) =====
-sketchybar --add item separator left \
-  --set separator \
-    icon="" \
-    icon.font="JetBrainsMono Nerd Font:Bold:13.0" \
-    icon.color=0xff9ece6a \
-    icon.padding_left=4 \
-    icon.padding_right=4 \
-    label.drawing=off \
-    background.drawing=off
-
-# ===== Front App (Left) =====
 sketchybar --add item front_app left \
   --set front_app \
-    icon.drawing=off \
+    icon="󰋜" \
+    icon.font="JetBrainsMono Nerd Font:Bold:16.0" \
+    icon.color=0xff18222d \
+    label="Desktop" \
     label.font="JetBrainsMono Nerd Font:Bold:12.0" \
-    label.color=0xff0f1720 \
-    label.padding_left=10 \
-    label.padding_right=10 \
+    label.color=0xff18222d \
+    label.padding_left=4 \
+    label.padding_right=12 \
     background.drawing=on \
-    background.color=0xff9ece6a \
-    background.border_color=0xff9ece6a \
+    background.color=0xfff3b269 \
+    background.border_color=0xfff8c997 \
     background.border_width=1 \
     background.corner_radius=$ITEM_CORNER_RADIUS \
     background.height=$ITEM_HEIGHT \
     script="$PLUGIN_DIR/front_app.sh" \
   --subscribe front_app front_app_switched
 
-# ===== Right Side Items =====
-# Each item is its own pill with border
-RIGHT_ICON_FONT="JetBrainsMono Nerd Font:Bold:11.0"
+RIGHT_ICON_FONT="JetBrainsMono Nerd Font:Bold:14.0"
 RIGHT_LABEL_FONT="SF Pro:Semibold:13.0"
 
-# -- Clock (rightmost)
 sketchybar --add item clock right \
   --set clock \
     update_freq=10 \
     icon.drawing=off \
     label.font="$RIGHT_LABEL_FONT" \
     label.color=$RIGHT_PRIMARY_TEXT \
-    label.padding_left=14 \
-    script="$PLUGIN_DIR/clock.sh"
+    label.padding_left=10 \
+    label.padding_right=10 \
+    background.drawing=on \
+    background.color=$WS_EMPTY_BG \
+    background.border_color=$WS_INACTIVE_BORDER \
+    background.border_width=0 \
+    background.corner_radius=$ITEM_CORNER_RADIUS \
+    background.height=$ITEM_HEIGHT \
+    script="$PLUGIN_DIR/clock.sh" \
+    click_script="open -a Calendar"
 
-# -- Battery
 sketchybar --add item battery right \
   --set battery \
-    update_freq=120 \
+    update_freq=90 \
     icon="󰁹" \
-    icon.color=$GREEN \
     icon.font="$RIGHT_ICON_FONT" \
+    icon.color=$GREEN \
     label.font="$RIGHT_LABEL_FONT" \
     label.color=$RIGHT_PRIMARY_TEXT \
+    background.drawing=on \
+    background.color=$WS_EMPTY_BG \
+    background.border_color=$WS_INACTIVE_BORDER \
+    background.border_width=0 \
+    background.corner_radius=$ITEM_CORNER_RADIUS \
+    background.height=$ITEM_HEIGHT \
     script="$PLUGIN_DIR/battery.sh" \
   --subscribe battery system_woke power_source_change
 
-# -- Do Not Disturb
 sketchybar --add item dnd right \
   --set dnd \
-    icon="DND" \
+    icon="󰂛" \
     icon.font="$RIGHT_ICON_FONT" \
     icon.color=$RED \
     label.font="$RIGHT_LABEL_FONT" \
     label.color=$RIGHT_PRIMARY_TEXT \
     drawing=off \
+    background.drawing=on \
+    background.color=$WS_EMPTY_BG \
+    background.border_color=$WS_INACTIVE_BORDER \
+    background.border_width=0 \
+    background.corner_radius=$ITEM_CORNER_RADIUS \
+    background.height=$ITEM_HEIGHT \
     update_freq=5 \
     script="$PLUGIN_DIR/dnd.sh" \
   --subscribe dnd system_woke
 
--- WiFi
 sketchybar --add item wifi right \
   --set wifi \
-    icon="WFI" \
-    icon.font="JetBrainsMono Nerd Font:Bold:12.0" \
+    icon="󰖩" \
+    icon.font="$RIGHT_ICON_FONT" \
     icon.color=$BLUE \
-    label.font="JetBrainsMono Nerd Font:Bold:13.0" \
-    label.color=$TEXT \
+    label.drawing=off \
+    icon.padding_left=10 \
+    icon.padding_right=10 \
+    background.drawing=on \
+    background.color=$WS_EMPTY_BG \
+    background.border_color=$WS_INACTIVE_BORDER \
+    background.border_width=0 \
+    background.corner_radius=$ITEM_CORNER_RADIUS \
+    background.height=$ITEM_HEIGHT \
     update_freq=30 \
     script="$PLUGIN_DIR/wifi.sh"
 
-# -- Volume
 sketchybar --add item volume right \
   --set volume \
-    icon="VOL" \
+    icon="󰕾" \
     icon.font="$RIGHT_ICON_FONT" \
     icon.color=$CYAN \
     label.font="$RIGHT_LABEL_FONT" \
     label.color=$RIGHT_PRIMARY_TEXT \
+    background.drawing=on \
+    background.color=$WS_EMPTY_BG \
+    background.border_color=$WS_INACTIVE_BORDER \
+    background.border_width=0 \
+    background.corner_radius=$ITEM_CORNER_RADIUS \
+    background.height=$ITEM_HEIGHT \
     script="$PLUGIN_DIR/volume.sh" \
   --subscribe volume volume_change
 
-# -- CPU
 sketchybar --add item cpu right \
   --set cpu \
-    icon="CPU" \
+    icon="󰍛" \
     icon.font="$RIGHT_ICON_FONT" \
     icon.color=$CYAN \
     label.font="$RIGHT_LABEL_FONT" \
     label.color=$RIGHT_PRIMARY_TEXT \
+    background.drawing=on \
+    background.color=$WS_EMPTY_BG \
+    background.border_color=$WS_INACTIVE_BORDER \
+    background.border_width=0 \
+    background.corner_radius=$ITEM_CORNER_RADIUS \
+    background.height=$ITEM_HEIGHT \
     update_freq=5 \
     script="$PLUGIN_DIR/cpu.sh"
 
-# -- GPU
 sketchybar --add item gpu right \
   --set gpu \
-    icon="GPU" \
+    icon="󰢮" \
     icon.font="$RIGHT_ICON_FONT" \
     icon.color=$GREEN \
     label.font="$RIGHT_LABEL_FONT" \
     label.color=$RIGHT_PRIMARY_TEXT \
+    background.drawing=on \
+    background.color=$WS_EMPTY_BG \
+    background.border_color=$WS_INACTIVE_BORDER \
+    background.border_width=0 \
+    background.corner_radius=$ITEM_CORNER_RADIUS \
+    background.height=$ITEM_HEIGHT \
     update_freq=5 \
     script="$PLUGIN_DIR/gpu.sh"
 
-# -- RAM (leftmost right item)
 sketchybar --add item ram right \
   --set ram \
-    icon="RAM" \
+    icon="󰘚" \
     icon.font="$RIGHT_ICON_FONT" \
     icon.color=$MAGENTA \
     label.font="$RIGHT_LABEL_FONT" \
     label.color=$RIGHT_PRIMARY_TEXT \
+    background.drawing=on \
+    background.color=$WS_EMPTY_BG \
+    background.border_color=$WS_INACTIVE_BORDER \
+    background.border_width=0 \
+    background.corner_radius=$ITEM_CORNER_RADIUS \
+    background.height=$ITEM_HEIGHT \
     update_freq=10 \
     script="$PLUGIN_DIR/ram.sh"
 
-# ===== Force all scripts to run =====
+sketchybar --add bracket left_cluster logo space.1 space.2 space.3 space.4 space.5 space.6 space.7 front_app \
+  --set left_cluster \
+    background.drawing=off \
+    background.color=$GROUP_BG \
+    background.border_color=$GROUP_BORDER \
+    background.border_width=0 \
+    background.corner_radius=10 \
+    background.height=$GROUP_HEIGHT
+
+sketchybar --set logo padding_left=12
+sketchybar --set front_app padding_right=12
+sketchybar --set ram padding_left=10
+
+"$PLUGIN_DIR/aerospace.sh"
 sketchybar --update

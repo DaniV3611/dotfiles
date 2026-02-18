@@ -1,51 +1,50 @@
 #!/bin/bash
 
-# Tokyo Night inspired color palette for sketchybar
-
-# Bar (fully transparent)
 export BAR_COLOR=0x00000000
-export BAR_BORDER_COLOR=0x00000000
+export BAR_BORDER_COLOR=0x50b6dbed
+export ITEM_BG=0x75132130
+export ITEM_BORDER=0x55b6dbed
+export ITEM_CORNER_RADIUS=8
 
-# Item backgrounds (semi-transparent dark pills)
-export ITEM_BG=0xA0101018
-export ITEM_BORDER=0x40a89858
-export ITEM_CORNER_RADIUS=4
+export GROUP_BG=0x55101b2c
+export GROUP_BORDER=0x66a8d4ea
+export FOCUS_BG=0x8af3a55a
+export FOCUS_BORDER=0xfff3b269
 
-# General
-export WHITE=0xffc0caf5
-export TEXT=0xffa9b1d6
-export ICON_COLOR=0xffa9b1d6
-export LABEL_COLOR=0xffa9b1d6
+export WHITE=0xffeaf7ff
+export TEXT=0xffd4e6f2
+export ICON_COLOR=0xffcae2ef
+export LABEL_COLOR=0xffdcecf6
 export TRANSPARENT=0x00000000
-export SUBTLE=0x30a9b1d6
+export SUBTLE=0x66a3b9c8
 
-# Accent colors
-export ACCENT=0xffe0af68       # Gold/Amber
-export BLUE=0xff7aa2f7
-export GREEN=0xff9ece6a
-export RED=0xfff7768e
-export MAGENTA=0xffbb9af7
-export CYAN=0xff7dcfff
-export YELLOW=0xffe0af68
-export ORANGE=0xffff9e64
-export PINK=0xffff007c
+export ACCENT=0xfff3b269
+export BLUE=0xff8ed0ff
+export GREEN=0xff89d8a4
+export RED=0xffef7f8f
+export MAGENTA=0xffd7a3ff
+export CYAN=0xff83e4e2
+export YELLOW=0xfff3cb79
+export ORANGE=0xfff59f6a
+export PINK=0xffff8fb8
 
-# Workspace colors
-export ACTIVE_WS_ICON=0xffe0af68
-export ACTIVE_WS_LABEL=0xffc0caf5
-export ACTIVE_WS_BG=0x451a1b26
-export ACTIVE_WS_BORDER=0x80e0af68
-export INACTIVE_WS_ICON=0xb0a9b1d6
-export INACTIVE_WS_LABEL=0xa0a9b1d6
-export INACTIVE_WS_BG=0x401a1b26
-export INACTIVE_WS_BORDER=0x30565f89
-export EMPTY_WS_ICON=0x40565f89
+export ACTIVE_WS_ICON=$ACCENT
+export ACTIVE_WS_LABEL=$WHITE
+export ACTIVE_WS_BG=0xaa2b1c12
+export ACTIVE_WS_BORDER=0xfff3b269
+export INACTIVE_WS_ICON=0xff8ea5b6
+export INACTIVE_WS_LABEL=0xff9fb4c4
+export INACTIVE_WS_BG=0x55314354
+export INACTIVE_WS_BORDER=0x558db2c8
+export EMPTY_WS_ICON=0xff6e8291
 
-# Workspace states (AeroSpace)
-export WS_ACTIVE_HIGHLIGHT=0xfff4d98b
-export WS_OCCUPIED_TEXT=0xfff6f8ff
-export WS_EMPTY_TEXT=0xff7b839f
-export WS_INACTIVE_BORDER=0xff5e657d
+export WS_ACTIVE_HIGHLIGHT=0xfff6cb8b
+export WS_OCCUPIED_TEXT=0xffe7f5ff
+export WS_EMPTY_TEXT=0xff7f96a8
+export WS_INACTIVE_BORDER=0x668ab2c8
+export WS_ACTIVE_BG=0xaa402714
+export WS_OCCUPIED_BG=0x7a1f2f41
+export WS_OCCUPIED_BORDER=0x77a2c7db
+export WS_EMPTY_BG=0x66304252
 
-# Right side typography
-export RIGHT_PRIMARY_TEXT=0xfff8faff
+export RIGHT_PRIMARY_TEXT=0xffe6f5ff

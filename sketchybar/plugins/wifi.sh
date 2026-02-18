@@ -10,10 +10,10 @@ fi
 
 if [ -n "$SSID" ]; then
   COLOR=$BLUE
-  LABEL="ON"
+  ICON="󰖩"
 else
   COLOR=$RED
-  LABEL="OFF"
+  ICON="󰖪"
 fi
 
-sketchybar --set "$NAME" icon="WFI" icon.color="$COLOR" label="$LABEL"
+sketchybar --set "$NAME" icon="$ICON" icon.color="$COLOR"

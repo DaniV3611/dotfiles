@@ -10,7 +10,7 @@ case "$1" in
   "Google Chrome") echo "󰊯" ;;
   "Firefox") echo "󰈹" ;;
   "Brave Browser"|"Brave") echo "󰖟" ;;
-  "Zen Browser"|"zen") echo "󰖯" ;;   # genérico tipo zen / circle
+  "Zen"|"zen") echo "󰈹" ;;   # genérico tipo zen / circle
   "Arc") echo "󰞍" ;;
 
   # ===== Terminals =====
@@ -24,8 +24,8 @@ case "$1" in
   "DBeaver") echo "󰆼" ;;  # database icon
 
   # ===== Apps =====
-  "Notion") echo "󰈙" ;;
-  "WhatsApp") echo "󰖣" ;;
+  "Notion") echo "" ;;
+  *"WhatsApp"*) echo "󰖣" ;;
   "Figma") echo "󰟬" ;;
   "Discord") echo "󰙯" ;;
   "Slack") echo "󰒱" ;;

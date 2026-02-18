@@ -2,14 +2,30 @@
 
 source "$CONFIG_DIR/colors.sh"
 
-if [ "$SENDER" = "volume_change" ]; then
+if [ -n "$INFO" ]; then
   VOLUME="$INFO"
-
-  case "$VOLUME" in
-    [1-9]|[1-9][0-9]|100) COLOR=$CYAN ;;
-    0)                     COLOR=$RED ;;
-    *)                     COLOR=$SUBTLE ;;
-  esac
-
-  sketchybar --set "$NAME" icon="VOL" icon.color="$COLOR" label="${VOLUME}%"
+else
+  VOLUME="$(osascript -e 'output volume of (get volume settings)' 2>/dev/null)"
 fi
+
+case "$VOLUME" in
+  ''|*[!0-9]*)
+    VOLUME=0
+    ;;
+esac
+
+if [ "$VOLUME" -eq 0 ]; then
+  ICON="󰖁"
+  COLOR=$RED
+elif [ "$VOLUME" -lt 35 ]; then
+  ICON="󰕿"
+  COLOR=$CYAN
+elif [ "$VOLUME" -lt 70 ]; then
+  ICON="󰖀"
+  COLOR=$CYAN
+else
+  ICON="󰕾"
+  COLOR=$BLUE
+fi
+
+sketchybar --set "$NAME" icon="$ICON" icon.color="$COLOR" label="${VOLUME}%"
