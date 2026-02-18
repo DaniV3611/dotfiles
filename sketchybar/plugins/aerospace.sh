@@ -2,6 +2,8 @@
 
 source "$CONFIG_DIR/colors.sh"
 
+ITEM_HEIGHT=24
+
 # Get focused workspace (prefer event payload when available)
 FOCUSED_WORKSPACE="${FOCUSED_WORKSPACE:-$(aerospace list-workspaces --focused 2>/dev/null)}"
 if [ -z "$FOCUSED_WORKSPACE" ]; then
@@ -38,7 +40,7 @@ for SID in 1 2 3 4 5 6 7; do
     drawing=on
     icon="$SID"
     icon.color=$ICON_COLOR
-    icon.font="Hack Nerd Font:Bold:14.0"
+    icon.font="JetBrainsMono Nerd Font:Bold:14.0"
     label="$LABEL"
     label.color=$LABEL_COLOR
     background.drawing=on
@@ -46,7 +48,7 @@ for SID in 1 2 3 4 5 6 7; do
     background.border_color=$BORDER_COLOR
     background.border_width=1
     background.corner_radius=$ITEM_CORNER_RADIUS
-    background.height=28
+    background.height=$ITEM_HEIGHT
   )
 done
 

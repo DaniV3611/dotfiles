@@ -3,11 +3,21 @@
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 source "$CONFIG_DIR/colors.sh"
 
+BAR_HEIGHT=34
+NOTCH_BAR_HEIGHT=32
+ITEM_HEIGHT=24
+
+# Detect real notch width from macOS auxiliary top areas.
+NOTCH_WIDTH="$(swift -e 'import AppKit; var width = 200; for screen in NSScreen.screens { if #available(macOS 12.0, *), let left = screen.auxiliaryTopLeftArea, let right = screen.auxiliaryTopRightArea { let notch = Int(round(screen.frame.width - left.width - right.width)); if notch > 0 { width = notch; break } } }; print(width)' 2>/dev/null)"
+NOTCH_WIDTH="${NOTCH_WIDTH:-200}"
+
 # ===== Bar Appearance =====
 # Fully transparent bar — each item renders its own background
 sketchybar --bar \
   position=top \
-  height=40 \
+  height=$BAR_HEIGHT \
+  notch_display_height=$NOTCH_BAR_HEIGHT \
+  notch_width=$NOTCH_WIDTH \
   blur_radius=0 \
   color=$BAR_COLOR \
   border_width=0 \
@@ -15,7 +25,7 @@ sketchybar --bar \
   padding_left=8 \
   padding_right=8 \
   margin=0 \
-  y_offset=4 \
+  y_offset=2 \
   corner_radius=0 \
   topmost=window
 
@@ -24,8 +34,8 @@ sketchybar --bar \
 default=(
   padding_left=3
   padding_right=3
-  icon.font="Hack Nerd Font:Bold:14.0"
-  label.font="Hack Nerd Font:Bold:12.0"
+  icon.font="JetBrainsMono Nerd Font:Bold:14.0"
+  label.font="JetBrainsMono Nerd Font:Bold:12.0"
   icon.color=$ICON_COLOR
   label.color=$LABEL_COLOR
   icon.padding_left=14
@@ -37,7 +47,7 @@ default=(
   background.border_color=$ITEM_BORDER
   background.border_width=1
   background.corner_radius=$ITEM_CORNER_RADIUS
-  background.height=28
+  background.height=$ITEM_HEIGHT
 )
 sketchybar --default "${default[@]}"
 
@@ -45,7 +55,7 @@ sketchybar --default "${default[@]}"
 # sketchybar --add item apple_logo left \
 #   --set apple_logo \
 #     icon="" \
-#     icon.font="Hack Nerd Font:Bold:16.0" \
+#     icon.font="JetBrainsMono Nerd Font:Bold:16.0" \
 #     icon.color=$WHITE \
 #     icon.padding_left=8 \
 #     icon.padding_right=8 \
@@ -64,12 +74,12 @@ for sid in 1 2 3 4 5 6 7; do
   sketchybar --add item space.$sid left \
     --set space.$sid \
       icon="$sid" \
-      icon.font="Hack Nerd Font:Bold:14.0" \
+      icon.font="JetBrainsMono Nerd Font:Bold:14.0" \
       icon.color=$WS_EMPTY_TEXT \
       icon.padding_left=10 \
       icon.padding_right=4 \
       label="" \
-      label.font="Hack Nerd Font:Regular:12.0" \
+      label.font="JetBrainsMono Nerd Font:Regular:12.0" \
       label.color=$WS_OCCUPIED_TEXT \
       label.padding_left=0 \
       label.padding_right=10 \
@@ -78,7 +88,7 @@ for sid in 1 2 3 4 5 6 7; do
       background.border_color=$WS_INACTIVE_BORDER \
       background.border_width=1 \
       background.corner_radius=$ITEM_CORNER_RADIUS \
-      background.height=28 \
+      background.height=$ITEM_HEIGHT \
       drawing=on \
       click_script="aerospace workspace $sid"
 done
@@ -94,7 +104,7 @@ sketchybar --add item aerospace_trigger left \
 sketchybar --add item separator left \
   --set separator \
     icon="" \
-    icon.font="Hack Nerd Font:Bold:13.0" \
+    icon.font="JetBrainsMono Nerd Font:Bold:13.0" \
     icon.color=0xff9ece6a \
     icon.padding_left=4 \
     icon.padding_right=4 \
@@ -105,7 +115,7 @@ sketchybar --add item separator left \
 sketchybar --add item front_app left \
   --set front_app \
     icon.drawing=off \
-    label.font="Hack Nerd Font:Bold:12.0" \
+    label.font="JetBrainsMono Nerd Font:Bold:12.0" \
     label.color=0xff0f1720 \
     label.padding_left=10 \
     label.padding_right=10 \
@@ -114,13 +124,13 @@ sketchybar --add item front_app left \
     background.border_color=0xff9ece6a \
     background.border_width=1 \
     background.corner_radius=$ITEM_CORNER_RADIUS \
-    background.height=28 \
+    background.height=$ITEM_HEIGHT \
     script="$PLUGIN_DIR/front_app.sh" \
   --subscribe front_app front_app_switched
 
 # ===== Right Side Items =====
 # Each item is its own pill with border
-RIGHT_ICON_FONT="Hack Nerd Font:Bold:11.0"
+RIGHT_ICON_FONT="JetBrainsMono Nerd Font:Bold:11.0"
 RIGHT_LABEL_FONT="SF Pro:Semibold:13.0"
 
 # -- Clock (rightmost)
@@ -130,7 +140,7 @@ sketchybar --add item clock right \
     icon.drawing=off \
     label.font="$RIGHT_LABEL_FONT" \
     label.color=$RIGHT_PRIMARY_TEXT \
-    label.padding_left=10 \
+    label.padding_left=14 \
     script="$PLUGIN_DIR/clock.sh"
 
 # -- Battery
@@ -162,9 +172,9 @@ sketchybar --add item dnd right \
 sketchybar --add item wifi right \
   --set wifi \
     icon="WFI" \
-    icon.font="Hack Nerd Font:Bold:12.0" \
+    icon.font="JetBrainsMono Nerd Font:Bold:12.0" \
     icon.color=$BLUE \
-    label.font="Hack Nerd Font:Bold:13.0" \
+    label.font="JetBrainsMono Nerd Font:Bold:13.0" \
     label.color=$TEXT \
     update_freq=30 \
     script="$PLUGIN_DIR/wifi.sh"
