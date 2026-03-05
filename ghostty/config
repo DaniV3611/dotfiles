@@ -1,9 +1,9 @@
-font-family=Fira Code
+font-family=JetBrainsMono Nerd Font
 
 # Theme synced with OS appear
 # theme = dark:coolnight,light:light
 
-theme = aura
+theme = catppuccin-mocha
 
 # Tamaño inicial de la ventana
 window-width=136
